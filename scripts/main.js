@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Canvas animation
+
     const canvas = document.getElementById('heroCanvas');
     const ctx = canvas.getContext('2d');
     let particlesArray = [];
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mouse.y = event.y;
     });
 
-    // Generate random color
+
     function randomColor() {
         const letters = '0123456789ABCDEF';
         let color = '#';
@@ -107,16 +107,16 @@ document.addEventListener('DOMContentLoaded', function() {
         let size = (Math.random() * 5) + 1;
         let directionX = (Math.random() * 2) - 1;
         let directionY = (Math.random() * 2) - 1;
-        let color = randomColor(); // Generate a random color
+        let color = randomColor(); 
 
-        // Calculate position behind the mouse cursor
-        let offsetX = directionX > 0 ? -size * 2 : size * 2; // Offset based on direction
-        let offsetY = directionY > 0 ? -size * 2 : size * 2; // Offset based on direction
+       
+        let offsetX = directionX > 0 ? -size * 2 : size * 2; 
+        let offsetY = directionY > 0 ? -size * 2 : size * 2; 
         particlesArray.push(new Particle(x + offsetX, y + offsetY, directionX, directionY, size, color));
     }
 
     canvas.addEventListener('click', function(event) {
-        createParticle(event.x, event.y); // Create particle at click position
+        createParticle(event.x, event.y); 
     });
 
     function animate() {

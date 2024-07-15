@@ -7,34 +7,32 @@ if (!isset($_SESSION['username'])) {
 
 require '../config.php';
 
-// Proses upload file
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $description = $_POST['description'];
 
-    // Mengupload file
+
     $target_dir = "../images/";
     $imageFileType = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
     $target_file = $target_dir . uniqid() . '.' . $imageFileType; // Menggunakan uniqid untuk nama file
 
-    // Validasi format gambar
+
     $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
     if (!in_array($imageFileType, $allowed_types)) {
         echo "<script>alert('Hanya format JPG, JPEG, PNG, dan GIF yang diperbolehkan.');</script>";
         exit();
     }
 
-    // Cek apakah file adalah gambar
     $check = getimagesize($_FILES["image"]["tmp_name"]);
     if ($check === false) {
         echo "<script>alert('File yang diunggah bukan gambar.');</script>";
         exit();
     }
 
-    // Memindahkan file ke direktori yang ditentukan
+
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-        // Menyimpan data proyek ke database
-        // Menggunakan jalur relatif dari folder proyek
+
         $relative_file_path = 'images/' . basename($target_file);
         $sql = "INSERT INTO projects (title, description, image) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
